@@ -1,2 +1,2 @@
 <?php
-$string['pluginname'] = 'My first Moodle plugin';
+$string['pluginname'] = 'M.S first Moodle plugin';
