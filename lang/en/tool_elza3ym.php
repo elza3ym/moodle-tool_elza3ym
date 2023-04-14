@@ -14,4 +14,11 @@
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
+/**
+ * This is some description to try to bypass the moodle cli action.
+ * @package   tool_elza3ym
+ * @copyright 2023, Mohamed Shehata <mohamed.shehata@moodle.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
 $string['pluginname'] = 'M.S2 first Moodle plugin';
