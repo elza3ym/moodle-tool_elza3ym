@@ -21,4 +21,5 @@
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
-$string['pluginname'] = 'M.S2 first Moodle plugin';
+$string['pluginname'] = 'M.S first Moodle plugin';
+$string['details'] = 'This course id is {$a}';
