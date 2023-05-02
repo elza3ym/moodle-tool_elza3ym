@@ -19,8 +19,9 @@
  * @copyright 2023, Mohamed Shehata <mohamed.shehata@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-if ($oldversion < 2023041309) {
-
+$oldversion = 2023041309;
+if ($oldversion < 2023041310) {
+  $dbman = $DB->get_manager();
   // Define table tool_elza3ym to be created.
   $table = new xmldb_table('tool_elza3ym');
 
@@ -42,5 +43,5 @@ if ($oldversion < 2023041309) {
   }
 
   // Elza3ym savepoint reached.
-  upgrade_plugin_savepoint(true, 2023041309, 'tool', 'elza3ym');
+  upgrade_plugin_savepoint(true, 2023041310, 'tool', 'elza3ym');
 }
