@@ -21,6 +21,8 @@
  */
 require_once(__DIR__.'/../../../config.php');
 require_once($CFG->libdir.'/adminlib.php');
+$id = optional_param('id', 1, PARAM_INT);
+require_login($id, false);
 $out = '';
 $out .= html_writer::div('From view.php file', 'title', ['id' => 'titlehead']);
 $out .= '      <span lang="ar" class="multilang">your_content_here</span>
@@ -52,7 +54,13 @@ while ($users->valid() && $user = $users->current()) {
   $users->next();
 }
 //var_dump($user);
-die();
+
+$systemcontext = context_system::instance();
+
+if (!has_capability('tool/elza3ym:edit', $systemcontext)) {
+  die;
+}
+
 $output = $PAGE->get_renderer('tool_elza3ym');
 
 echo $output->header();
@@ -71,5 +79,21 @@ echo html_writer::div(s($userinput)); // Used when you want to escape the value.
 echo html_writer::div(format_string($userinput)); // Used for one-line strings, such as forum post subject.
 echo html_writer::div(format_text($userinput)); // Used for multil-line rich-text contents such as forum post body.
 
+
+
+// Form API
+$mform = new \tool_elza3ym\form\myform();
+
+if ($mform->is_cancelled()) {
+  // When cancelled
+} else if ($fromform = $mform->get_data()) {
+  // when submitted
+} else {
+  // form is submitted and not valid. or not submitted I think
+//  $mform->set_data($toform);
+
+  $mform->display();
+
+}
 
 echo $output->footer();

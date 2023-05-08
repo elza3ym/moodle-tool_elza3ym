@@ -15,14 +15,27 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * This is some description to try to bypass the moodle cli action.
  * @package   tool_elza3ym
  * @copyright 2023, Mohamed Shehata <mohamed.shehata@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+$capabilities = [
+  'tool/elza3ym:edit' => [
+    'riskbitmask' => RISK_SPAM,
+    'captype' => 'write',
+    'contextlevel' => CONTEXT_MODULE,
+    'archetypes' => [
+      'editingteacher' => CAP_ALLOW,
+    ],
+  ],
+  'tool/elza3ym:view' => [
+    'riskbitmask' => RISK_SPAM,
+    'captype' => 'read',
+    'contextlevel' => CONTEXT_MODULE,
+    'archetypes' => [
+      'editingteacher' => CAP_ALLOW,
+    ],
+  ],
+];
 
-defined('MOODLE_INTERNAL') || die();
-
-$plugin->version = 2023041323;
-$plugin->requires = 2022112800;
-$plugin->component = 'tool_elza3ym';
-$plugin->release = '1.0';

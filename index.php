@@ -19,6 +19,16 @@ echo $output->header();
 echo $output->heading($pagetitle);
 
 $renderable = new \tool_elza3ym\output\index_page('Some text');
+$systemcontext = context_system::instance();
+
+if (!has_capability('tool/elza3ym:view', $systemcontext)) {
+  die;
+}
+
+$course_id = required_param('courseid', PARAM_INT);
 
 echo $output->render($renderable);
+
+echo html_writer::link(new moodle_url('/admin/tool/elza3ym/edit.php?courseid='.$course_id), get_string('edit_single_task', 'tool_elza3ym', $course_id));
+
 echo $output->footer();
