@@ -23,10 +23,11 @@
 
 $string['completed'] = 'Completed ?';
 $string['details'] = 'This course id is {$a}';
-$string['edit_single_task'] = 'Edit TODO Task #{$a}';
 $string['edit_task'] = 'Edit TODO Task';
 $string['elza3ym:edit'] = 'Edit this todo';
 $string['elza3ym:managefiles'] = 'Manage files in folder module';
 $string['elza3ym:view'] = 'Read this todo';
 $string['emailinvalid'] = 'Please Enter Valid Email';
+$string['single_task'] = 'TODO Task #{$a}';
+$string['single_task_edit'] = 'Edit TODO Task #{$a}';
 $string['pluginname'] = 'M.S first Moodle plugin';

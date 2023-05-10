@@ -26,7 +26,7 @@ use renderer_base;
 class index_page implements \renderable, \templatable {
   var $sometext = null;
 
-  public function __construct($sometext) {
+  public function __construct($sometext = null) {
     $this->sometext = $sometext;
   }
 
