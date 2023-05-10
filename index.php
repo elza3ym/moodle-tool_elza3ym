@@ -34,7 +34,6 @@ $PAGE->set_pagelayout('standard');
 $PAGE->set_title($pagetitle);
 $PAGE->set_heading(get_string('pluginname', 'tool_elza3ym'));
 
-
 $output = $PAGE->get_renderer('tool_elza3ym');
 
 echo $output->header();
