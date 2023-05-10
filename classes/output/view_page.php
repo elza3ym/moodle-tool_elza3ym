@@ -29,18 +29,6 @@ use renderer_base;
  * view_page that implements the templating and rendering Interfaces.
  */
 class view_page implements \renderable, \templatable {
-
-    // Some text to pass to template.
-    public string|null $textinputfromview = null;
-
-    /**
-     * Pass values to the template.
-     * @param string $input_from_view
-     */
-    public function __construct(string $inputfromview) {
-        $this->textinputfromview = $inputfromview;
-    }
-
     /**
      * Prepare data for templating.
      * @param renderer_base $output

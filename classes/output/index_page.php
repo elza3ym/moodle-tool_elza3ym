@@ -29,18 +29,6 @@ use renderer_base;
  * index_page that implements the templating and rendering Interfaces.
  */
 class index_page implements \renderable, \templatable {
-
-    // Some text to pass to template.
-    public string|null $sometext = null;
-
-    /**
-     * Pass values to the template.
-     * @param string|null $sometext
-     */
-    public function __construct(string $sometext = null) {
-        $this->sometext = $sometext;
-    }
-
     /**
      * Prepare data for templating.
      * @param renderer_base $output
