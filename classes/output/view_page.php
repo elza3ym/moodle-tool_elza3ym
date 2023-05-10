@@ -15,23 +15,40 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * View Task page template renderer.
  * @package   tool_elza3ym
  * @copyright 2023, Mohamed Shehata <mohamed.shehata@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
 namespace tool_elza3ym\output;
+
 use renderer_base;
 
+/**
+ * view_page that implements the templating and rendering Interfaces.
+ */
 class view_page implements \renderable, \templatable {
-  var $text_input_from_view = null;
-  public function __construct($input_from_view) {
-    $this->text_input_from_view = $input_from_view;
-  }
 
-  public function export_for_template(renderer_base $output) {
-    $data = new \stdClass();
-    $data->text_input_from_view = $this->text_input_from_view;
-    return $data;
-  }
+    // Some text to pass to template.
+    public string|null $textinputfromview = null;
+
+    /**
+     * Pass values to the template.
+     * @param string $input_from_view
+     */
+    public function __construct(string $inputfromview) {
+        $this->textinputfromview = $inputfromview;
+    }
+
+    /**
+     * Prepare data for templating.
+     * @param renderer_base $output
+     * @return \stdClass
+     */
+    public function export_for_template(renderer_base $output) {
+        $data = new \stdClass();
+        $data->textinputfromview = $this->textinputfromview;
+        return $data;
+    }
 }

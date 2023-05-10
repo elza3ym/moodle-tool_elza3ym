@@ -15,24 +15,40 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Index Page Renderer And Template.
  * @package   tool_elza3ym
  * @copyright 2023, Mohamed Shehata <mohamed.shehata@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace tool_elza3ym\output;
 
 use renderer_base;
 
+/**
+ * index_page that implements the templating and rendering Interfaces.
+ */
 class index_page implements \renderable, \templatable {
-  var $sometext = null;
 
-  public function __construct($sometext = null) {
-    $this->sometext = $sometext;
-  }
+    // Some text to pass to template.
+    public string|null $sometext = null;
 
-  public function export_for_template(renderer_base $output) {
-    $data = new \stdClass();
-    $data->sometext = $this->sometext;
-    return $data;
-  }
+    /**
+     * Pass values to the template.
+     * @param string|null $sometext
+     */
+    public function __construct(string $sometext = null) {
+        $this->sometext = $sometext;
+    }
+
+    /**
+     * Prepare data for templating.
+     * @param renderer_base $output
+     * @return \stdClass
+     */
+    public function export_for_template(renderer_base $output) {
+        $data = new \stdClass();
+        $data->sometext = $this->sometext;
+        return $data;
+    }
 }

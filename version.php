@@ -15,6 +15,8 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Version information
+ *
  * @package   tool_elza3ym
  * @copyright 2023, Mohamed Shehata <mohamed.shehata@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -23,6 +25,6 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->version = 2023041325;
-$plugin->requires = 2022112800;
+$plugin->requires = 2023042400;
 $plugin->component = 'tool_elza3ym';
 $plugin->release = '1.0';

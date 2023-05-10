@@ -15,6 +15,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
+ * Plugin Renderer.
  * @package   tool_elza3ym
  * @copyright 2023, Mohamed Shehata <mohamed.shehata@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -22,16 +23,29 @@
 
 namespace tool_elza3ym\output;
 
-defined('MOODLE_INTERNAL') || die;
-
+/**
+ * Plugin Renderer is responsible for rendering the templates and passing values.
+ */
 class renderer extends \plugin_renderer_base {
-  public function render_index_page(index_page $page) {
-    $data = $page->export_for_template($this);
-    return parent::render_from_template('tool_elza3ym/index_page', $data);
-  }
+    /**
+     * Render index_page template
+     * @param index_page $page
+     * @return bool|string
+     * @throws \moodle_exception
+     */
+    public function render_index_page(index_page $page) {
+        $data = $page->export_for_template($this);
+        return parent::render_from_template('tool_elza3ym/index_page', $data);
+    }
 
-  public function render_view_page(view_page $page) {
-    $data = $page->export_for_template($this);
-    return parent::render_from_template('tool_elza3ym/view_page', $data);
-  }
+    /**
+     * Render view_page template
+     * @param view_page $page
+     * @return bool|string
+     * @throws \moodle_exception
+     */
+    public function render_view_page(view_page $page) {
+        $data = $page->export_for_template($this);
+        return parent::render_from_template('tool_elza3ym/view_page', $data);
+    }
 }
