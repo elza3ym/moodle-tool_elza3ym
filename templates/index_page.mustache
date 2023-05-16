@@ -24,13 +24,55 @@
     Data attributes required for JS:
 
     Context variables required for this template:
+    * pluginbaseurl - base url of plugin tool_elza3ym
+
 
     Example context (json):
     {
-        "sometext": "Looks Amazing"
+        "tasks": [
+            {
+                "id": 1,
+                "name": "task1",
+                "completed": 1,
+                "courseid": 1
+            }
+        ]
     }
 
 }}
-<div class="hero-unit">
-    <p>{{sometext}}</p>
-</div>
+
+{{#tasks}}
+    <div class="card mt-4">
+        <div class="card-header">
+            <a href="{{pluginbaseurl}}/edit.php?id={{id}}">Edit single task</a>
+        </div>
+        <div class="card-body">
+            <span class="h6">
+                {{name}}
+            </span>
+            <div class="float-right">
+                {{#completed}}
+                    <span class="h6 mr-3">
+                        Completed
+                    </span>
+                    <i class="fa fa-check icon text-success"></i>
+                {{/completed}}
+                {{^completed}}
+                    <span class="h6 mr-3">
+                        Not Completed
+                    </span>
+                    <i class="fa fa-x icon text-danger"></i>
+                {{/completed}}
+            </div>
+        </div>
+    </div>
+{{/tasks}}
+
+{{#js}}
+    require(['core/str'], function(Str) {
+        // Preloading strings.
+        Str.get_strings([
+            { key: 'singletask', component: 'tool_elza3ym' },
+        ]);
+    });
+{{/js}}

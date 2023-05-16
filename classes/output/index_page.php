@@ -29,6 +29,12 @@ use renderer_base;
  * index_page that implements the templating and rendering Interfaces.
  */
 class index_page implements \renderable, \templatable {
+    private $tasks;
+
+    public function __construct($tasks) {
+        $this->tasks = $tasks;
+    }
+
     /**
      * Prepare data for templating.
      * @param renderer_base $output
@@ -36,7 +42,9 @@ class index_page implements \renderable, \templatable {
      */
     public function export_for_template(renderer_base $output) {
         $data = new \stdClass();
-        $data->sometext = $this->sometext;
+        $data->tasks = $this->tasks;
+        $data->pluginbaseurl = (new \moodle_url('/admin/tool/elza3ym'))->out(true);
+
         return $data;
     }
 }

@@ -26,9 +26,9 @@ namespace tool_elza3ym\output;
 use renderer_base;
 
 /**
- * view_page that implements the templating and rendering Interfaces.
+ * edit_page that implements the templating and rendering Interfaces.
  */
-class view_page implements \renderable, \templatable {
+class edit_page implements \renderable, \templatable {
     /**
      * Prepare data for templating.
      * @param renderer_base $output

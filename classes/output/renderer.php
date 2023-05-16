@@ -39,13 +39,13 @@ class renderer extends \plugin_renderer_base {
     }
 
     /**
-     * Render view_page template
-     * @param view_page $page
+     * Render edit_page template
+     * @param edit_page $page
      * @return bool|string
      * @throws \moodle_exception
      */
-    public function render_view_page(view_page $page) {
+    public function render_view_page(edit_page $page) {
         $data = $page->export_for_template($this);
-        return parent::render_from_template('tool_elza3ym/view_page', $data);
+        return parent::render_from_template('tool_elza3ym/edit_page', $data);
     }
 }
