@@ -26,6 +26,18 @@ require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
 
 require_login();
+$systemcontext = context_system::instance();
+
+if ($deleteid = optional_param('delete', null, PARAM_INT)) {
+    require_sesskey();
+    $task = $DB->get_record('tool_elza3ym', ['id' => $deleteid], '*', MUST_EXIST);
+    require_login(get_course($task->courseid));
+    require_capability('tool/elza3ym:edit', context_course::instance($task->courseid));
+    $DB->delete_records('tool_elza3ym', ['id' => $deleteid]);
+    redirect(new moodle_url('/admin/tool/elza3ym/index.php', ['id' => $task->courseid]));
+}
+
+require_capability('tool/elza3ym:view', $systemcontext);
 $pagetitle = 'Hello to the todo list';
 $url = new moodle_url('/admin/tool/elza3ym/index.php');
 $PAGE->set_context(context_system::instance());
@@ -40,13 +52,9 @@ echo $output->header();
 echo $output->heading($pagetitle);
 
 
-$systemcontext = context_system::instance();
 
-if (!has_capability('tool/elza3ym:view', $systemcontext)) {
-    die;
-}
 
-$courseid = optional_param('courseid', 0, PARAM_INT);
+$courseid = optional_param('courseid', 1, PARAM_INT);
 $tasks = $DB->get_records('tool_elza3ym', null, 'id DESC', '*');
 //$tasks = json_decode(json_encode($tasks), true);
 //var_dump($tasks);
@@ -64,13 +72,17 @@ echo $output->render($renderable);
 $mform = new \tool_elza3ym\form\myform();
 if ($mform->is_submitted()) {
     $data = $mform->get_data();
+    $task = new stdClass();
+    $task->name = $data->name;
+    $task->completed = $data->completed ?? 0;
+    $task->courseid = $data->courseid;
 
-    $insertedtask = $DB->get_records('tool_elza3ym', null, 'id DESC', '*', 0, 1);
-    if ($insertedtask && !empty($insertedtask)) {
-        echo html_writer::link(
-            new moodle_url('/admin/tool/elza3ym/edit.php?id=' . $insertedtask[0]->id),
-            get_string('edit_single_task', 'tool_elza3ym', $insertedtask[0]->id)
-        );
+    $insertedtaskid = $DB->insert_record('tool_elza3ym', $task, true);
+
+
+    if ($insertedtaskid) {
+        $tasksurl = new moodle_url('/admin/tool/elza3ym/index.php');
+        redirect($tasksurl, 'Task Created Successfully.');
     } else {
         echo html_writer::div('Something went wrong!', 'alert alert-danger');
     }

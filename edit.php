@@ -25,15 +25,13 @@
 require_once(__DIR__ . '/../../../config.php');
 require_once("$CFG->libdir/adminlib.php");
 
-$pagetitle = get_string('edit_task', 'tool_elza3ym');
+$pagetitle = get_string('edittask', 'tool_elza3ym');
 $moodleurl = new moodle_url('/admin/tool/elza3ym/edit.php');
 $courseid = optional_param('id', 0, PARAM_INT);
 $task = $DB->get_record('tool_elza3ym', ['id' => $courseid]);
 require_login();
 // Check Capability.
-if (!has_capability('tool/elza3ym:edit', context_system::instance())) {
-    die;
-}
+require_capability('tool/elza3ym:edit', context_system::instance());
 
 // PAGE.
 $PAGE->set_context(context_system::instance());
@@ -54,16 +52,17 @@ $customdata = [
     'courseid' => $courseid
 ];
 
-$taskurl = new moodle_url('/admin/tool/elza3ym/edit.php?id=' . $courseid);
+$taskurl = new moodle_url('/admin/tool/elza3ym/edit.php', ['id' => $courseid]);
+$tasksurl = new moodle_url('/admin/tool/elza3ym/index.php');
 $mform = new \tool_elza3ym\form\myform($taskurl, $customdata);
 if ($mform->is_cancelled()) {
     // If form is cancelled.
-    redirect($taskurl, 'Task Updated Successfully.');
+    redirect($tasksurl, 'Task Updated Successfully.');
 } else if ($data = $mform->get_data()) {
     $task->name = $data->name;
     $task->completed = $data->completed ?? 0;
     $DB->update_record('tool_elza3ym', $task);
-    redirect($taskurl, 'Task Updated Successfully.');
+    redirect($tasksurl, 'Task Updated Successfully.');
 } else {
     $mform->set_data([
         'name' => $task->name,
@@ -71,7 +70,7 @@ if ($mform->is_cancelled()) {
     ]);
     echo html_writer::start_div('card mt-4');
     echo html_writer::start_div('card-header');
-    echo html_writer::span(get_string('single_task_edit', 'tool_elza3ym', $task->id), 'h6');
+    echo html_writer::span(get_string('singletaskedit', 'tool_elza3ym', $task->id), 'h6');
     echo html_writer::end_div();
     echo html_writer::start_div('card-body');
     $mform->display();

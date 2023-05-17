@@ -43,6 +43,7 @@ class index_page implements \renderable, \templatable {
     public function export_for_template(renderer_base $output) {
         $data = new \stdClass();
         $data->tasks = $this->tasks;
+        $data->sesskey = sesskey();
         $data->pluginbaseurl = (new \moodle_url('/admin/tool/elza3ym'))->out(true);
 
         return $data;

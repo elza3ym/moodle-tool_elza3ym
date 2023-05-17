@@ -48,7 +48,7 @@ class myform extends \moodleform {
         $mform->addElement('checkbox', 'completed', get_string('completed', 'tool_elza3ym'));
 
         // Add hidden field for courseid.
-        $mform->addElement('hidden', 'courseid', $this->_customdata['courseid'] ?? 0);
+        $mform->addElement('hidden', 'courseid', $this->_customdata['courseid'] ?? 1);
         $mform->setType('courseid', PARAM_INT);
 
         // Form submittion buttons.
