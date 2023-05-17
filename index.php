@@ -56,15 +56,9 @@ echo $output->heading($pagetitle);
 
 $courseid = optional_param('courseid', 1, PARAM_INT);
 $tasks = $DB->get_records('tool_elza3ym', null, 'id DESC', '*');
-//$tasks = json_decode(json_encode($tasks), true);
-//var_dump($tasks);
-$tasksArr = [];
-foreach ($tasks as $task) {
-    $tasksArr[] = json_decode(json_encode($task), true);
-}
-$tasks = $tasksArr;
 
-$renderable = new \tool_elza3ym\output\index_page($tasks);
+$renderable = new \tool_elza3ym\output\index_page(array_values($tasks));
+
 
 
 echo $output->render($renderable);
