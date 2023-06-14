@@ -24,6 +24,7 @@
 
 require_once(__DIR__ . '/../../../config.php');
 require_once("$CFG->libdir/adminlib.php");
+require_once("$CFG->dirroot/$CFG->admin/tool/elza3ym/locallib.php");
 
 $pagetitle = get_string('edittask', 'tool_elza3ym');
 $moodleurl = new moodle_url('/admin/tool/elza3ym/edit.php');
@@ -33,19 +34,13 @@ require_login();
 // Check Capability.
 require_capability('tool/elza3ym:edit', context_system::instance());
 
+
 // PAGE.
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url($moodleurl);
 $PAGE->set_pagelayout('standard');
 $PAGE->set_title($pagetitle);
 $PAGE->set_heading($pagetitle);
-
-
-// Render Page.
-$output = $PAGE->get_renderer('tool_elza3ym');
-
-echo $output->header();
-echo $output->heading($pagetitle);
 
 // Form Handling.
 $customdata = [
@@ -59,23 +54,33 @@ if ($mform->is_cancelled()) {
     // If form is cancelled.
     redirect($tasksurl, 'Task Updated Successfully.');
 } else if ($data = $mform->get_data()) {
-    $task->name = $data->name;
-    $task->completed = $data->completed ?? 0;
-    $DB->update_record('tool_elza3ym', $task);
-    redirect($tasksurl, 'Task Updated Successfully.');
-} else {
-    $mform->set_data([
-        'name' => $task->name,
-        'completed' => $task->completed
-    ]);
-    echo html_writer::start_div('card mt-4');
-    echo html_writer::start_div('card-header');
-    echo html_writer::span(get_string('singletaskedit', 'tool_elza3ym', $task->id), 'h6');
-    echo html_writer::end_div();
-    echo html_writer::start_div('card-body');
-    $mform->display();
-    echo html_writer::end_div();
-    echo html_writer::end_div();
+    $isedited = edittask($task, $data);
+    if ($isedited) {
+        redirect($tasksurl, 'Task Updated Successfully.');
+    } else {
+        echo html_writer::div('Something went wrong!', 'alert alert-danger');
+    }
 }
+
+// Render Page.
+$output = $PAGE->get_renderer('tool_elza3ym');
+
+echo $output->header();
+echo $output->heading($pagetitle);
+
+
+$mform->set_data([
+    'name' => $task->name,
+    'completed' => $task->completed
+]);
+echo html_writer::start_div('card mt-4');
+echo html_writer::start_div('card-header');
+echo html_writer::span(get_string('singletaskedit', 'tool_elza3ym', $task->id), 'h6');
+echo html_writer::end_div();
+echo html_writer::start_div('card-body');
+$mform->display();
+echo html_writer::end_div();
+echo html_writer::end_div();
+
 
 echo $output->footer();

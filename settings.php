@@ -44,7 +44,7 @@ if ($ADMIN->fulltree) {
 // This adds the settings link to the folder/submenu.
 $ADMIN->add('blocksamplefolder', $settings);
 // This adds a link to an external page.
-$ADMIN->add('blocksamplefolder', new admin_externalpage('block_sample_page', 'externalpage',
-    $CFG->wwwroot . '/blocks/sample/sample.php'));
+$ADMIN->add('blocksamplefolder', new admin_externalpage('block_sample_page', 'Tasks Management',
+    $CFG->wwwroot . '/admin/tool/elza3ym/index.php'));
 // Prevent Moodle from adding settings block in standard location.
 $settings = null;

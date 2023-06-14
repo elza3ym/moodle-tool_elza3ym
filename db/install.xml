@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<XMLDB PATH="admin/tool/elza3ym/db" VERSION="20230502" COMMENT="XMLDB file for Moodle admin/tool/elza3ym"
+<XMLDB PATH="admin/tool/elza3ym/db" VERSION="20230612" COMMENT="XMLDB file for Moodle admin/tool/elza3ym"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="../../../../lib/xmldb/xmldb.xsd"
 >
@@ -18,8 +18,7 @@
         <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
       </KEYS>
       <INDEXES>
-        <INDEX NAME="courseid" UNIQUE="true" FIELDS="courseid"/>
-        <INDEX NAME="name" UNIQUE="true" FIELDS="name"/>
+        <INDEX NAME="id" UNIQUE="true" FIELDS="id"/>
       </INDEXES>
     </TABLE>
   </TABLES>

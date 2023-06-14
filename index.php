@@ -24,17 +24,19 @@
 
 require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
+require_once("$CFG->dirroot/$CFG->admin/tool/elza3ym/locallib.php");
 
 require_login();
 $systemcontext = context_system::instance();
 
 if ($deleteid = optional_param('delete', null, PARAM_INT)) {
-    require_sesskey();
     $task = $DB->get_record('tool_elza3ym', ['id' => $deleteid], '*', MUST_EXIST);
-    require_login(get_course($task->courseid));
-    require_capability('tool/elza3ym:edit', context_course::instance($task->courseid));
-    $DB->delete_records('tool_elza3ym', ['id' => $deleteid]);
-    redirect(new moodle_url('/admin/tool/elza3ym/index.php', ['id' => $task->courseid]));
+    $isdeleted = deletetask($task);
+    if ($isdeleted) {
+        redirect(new moodle_url('/admin/tool/elza3ym/index.php', ['id' => $task->courseid]), 'Task Deleted Successfully.');
+    } else {
+        echo html_writer::div('Something went wrong!', 'alert alert-danger');
+    }
 }
 
 require_capability('tool/elza3ym:view', $systemcontext);
@@ -48,6 +50,20 @@ $PAGE->set_heading(get_string('pluginname', 'tool_elza3ym'));
 
 $output = $PAGE->get_renderer('tool_elza3ym');
 
+$mform = new \tool_elza3ym\form\myform();
+if ($mform->is_submitted()) {
+    $data = $mform->get_data();
+    $insertedtaskid = createtask($data);
+    if ($insertedtaskid) {
+        $tasksurl = new moodle_url('/admin/tool/elza3ym/index.php');
+        redirect($tasksurl, 'Task Created Successfully.');
+    } else {
+        echo html_writer::div('Something went wrong!', 'alert alert-danger');
+    }
+}
+
+
+
 echo $output->header();
 echo $output->heading($pagetitle);
 
@@ -59,31 +75,7 @@ $tasks = $DB->get_records('tool_elza3ym', null, 'id DESC', '*');
 
 $renderable = new \tool_elza3ym\output\index_page(array_values($tasks));
 
-
-
 echo $output->render($renderable);
-
-$mform = new \tool_elza3ym\form\myform();
-if ($mform->is_submitted()) {
-    $data = $mform->get_data();
-    $task = new stdClass();
-    $task->name = $data->name;
-    $task->completed = $data->completed ?? 0;
-    $task->courseid = $data->courseid;
-
-    $insertedtaskid = $DB->insert_record('tool_elza3ym', $task, true);
-
-
-    if ($insertedtaskid) {
-        $tasksurl = new moodle_url('/admin/tool/elza3ym/index.php');
-        redirect($tasksurl, 'Task Created Successfully.');
-    } else {
-        echo html_writer::div('Something went wrong!', 'alert alert-danger');
-    }
-} else if ($mform->is_cancelled()) {
-    // TODO: the content of is_cancelled Creation.
-    return false;
-} else {
     echo html_writer::start_div('card mt-4');
     echo html_writer::start_div('card-header');
     echo html_writer::span('Create New Task', 'h6');
@@ -93,6 +85,5 @@ if ($mform->is_submitted()) {
     echo html_writer::end_div();
     echo html_writer::end_div();
 
-}
 
 echo $output->footer();

@@ -30,7 +30,7 @@
  */
 function xmldb_tool_elza3ym_upgrade($oldversion = 0): bool {
     global $DB;
-    if ($oldversion < 2023041317) {
+    if ($oldversion < 2023041328) {
         $dbman = $DB->get_manager();
         // Define table tool_elza3ym to be created.
         $table = new xmldb_table('tool_elza3ym');
@@ -53,7 +53,7 @@ function xmldb_tool_elza3ym_upgrade($oldversion = 0): bool {
         }
 
         // Elza3ym savepoint reached.
-        upgrade_plugin_savepoint(true, 2023041317, 'tool', 'elza3ym');
+        upgrade_plugin_savepoint(true, 2023041328, 'tool', 'elza3ym');
     }
     return true;
 }
