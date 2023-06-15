@@ -24,14 +24,18 @@
 
 require_once(__DIR__ . '/../../../config.php');
 require_once($CFG->libdir . '/adminlib.php');
-require_once("$CFG->dirroot/$CFG->admin/tool/elza3ym/locallib.php");
 
 require_login();
 $systemcontext = context_system::instance();
 
 if ($deleteid = optional_param('delete', null, PARAM_INT)) {
-    $task = $DB->get_record('tool_elza3ym', ['id' => $deleteid], '*', MUST_EXIST);
-    $isdeleted = deletetask($task);
+    $task = \tool_elza3ym\task::get($deleteid);
+    require_sesskey();
+    require_login(get_course($task->courseid));
+    require_capability('tool/elza3ym:edit', context_course::instance($task->courseid));
+
+    $isdeleted = $task->remove();
+
     if ($isdeleted) {
         redirect(new moodle_url('/admin/tool/elza3ym/index.php', ['id' => $task->courseid]), 'Task Deleted Successfully.');
     } else {
@@ -53,8 +57,11 @@ $output = $PAGE->get_renderer('tool_elza3ym');
 $mform = new \tool_elza3ym\form\myform();
 if ($mform->is_submitted()) {
     $data = $mform->get_data();
-    $insertedtaskid = createtask($data);
-    if ($insertedtaskid) {
+    $task = new \tool_elza3ym\task();
+    $task->tasktitle = $data->tasktitle;
+    $task->completed = $data->tasktitle ?? 0;
+
+    if ($task->save()) {
         $tasksurl = new moodle_url('/admin/tool/elza3ym/index.php');
         redirect($tasksurl, 'Task Created Successfully.');
     } else {
@@ -71,7 +78,7 @@ echo $output->heading($pagetitle);
 
 
 $courseid = optional_param('courseid', 1, PARAM_INT);
-$tasks = $DB->get_records('tool_elza3ym', null, 'id DESC', '*');
+$tasks = \tool_elza3ym\task::getAll();
 
 $renderable = new \tool_elza3ym\output\index_page(array_values($tasks));
 

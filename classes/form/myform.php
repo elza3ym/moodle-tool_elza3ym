@@ -41,8 +41,8 @@ class myform extends \moodleform {
         $mform = $this->_form;
 
         // Add name text input.
-        $mform->addElement('text', 'name', get_string('name'), ['placeholder' => 'Please enter your name']);
-        $mform->setType('name', PARAM_NOTAGS);
+        $mform->addElement('text', 'tasktitle', 'Task Title', ['placeholder' => 'Please enter task title']);
+        $mform->setType('tasktitle', PARAM_NOTAGS);
 
         // Add completed checkbox.
         $mform->addElement('checkbox', 'completed', get_string('completed', 'tool_elza3ym'));
