@@ -5,7 +5,7 @@ Feature: CRUD task
     Given I navigate to "Plugins > Blocks > M.S first Moodle plugin" in site administration
     And I click on "Tasks Management" "link"
     Then I should see "Hello to the todo list"
-    And I set the field "Name" to "Task1"
+    And I set the field "Task Title" to "Task1"
     And I click on "Completed ?" "checkbox"
     Then I press "Save changes"
     Then I should see "Task Created Successfully."
@@ -17,7 +17,7 @@ Feature: CRUD task
     Given I navigate to "Plugins > Blocks > M.S first Moodle plugin" in site administration
     And I click on "Tasks Management" "link"
     Then I should see "Hello to the todo list"
-    And I set the field "Name" to "Task2"
+    And I set the field "Task Title" to "Task2"
     And I click on "Completed ?" "checkbox"
     Then I press "Save changes"
     Then I should see "Task Created Successfully."
@@ -28,7 +28,7 @@ Feature: CRUD task
     And I click on "Tasks Management" "link"
     Then I should see "Hello to the todo list"
     And I click on "Edit single task" "link"
-    And I set the field "Name" to "Task Edited"
+    And I set the field "Task Title" to "Task Edited"
     Then I press "Save changes"
     And I wait to be redirected
     Then I should see "Task Edited"

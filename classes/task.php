@@ -9,12 +9,16 @@ class task {
 
     public function __construct() {}
 
-    public static function get(int $id): self {
+    public static function get(int $id): ?self {
         global $DB;
 
         $instance = new self();
         $instance->id = $id;
-        $task = $DB->get_record('tool_elza3ym', ['id' => $id], '*', MUST_EXIST);
+        try {
+            $task = $DB->get_record('tool_elza3ym', ['id' => $id], '*', MUST_EXIST);
+        } catch (\Exception $exception) {
+            return null;
+        }
         $instance->id = $task->id;
         $instance->tasktitle = $task->tasktitle;
         $instance->completed = $task->completed;
