@@ -21,6 +21,7 @@
  * @copyright 2023, Mohamed Shehata <mohamed.shehata@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
+
 namespace tool_elza3ym;
 
 /**
@@ -32,7 +33,8 @@ class task {
     public bool $completed;
     public ?int $courseid = 1;
 
-    public function __construct() {}
+    public function __construct() {
+    }
 
     public static function get(int $id): ?self {
         global $DB;
@@ -51,14 +53,14 @@ class task {
         return $instance;
     }
 
-    public static function getAll():array {
+    public static function getAll(): array {
         global $DB;
 
         return $DB->get_records('tool_elza3ym', null, 'id DESC', '*');
     }
 
 
-    public function save():int {
+    public function save(): int {
         global $DB;
 
         if (!$this->id) {
@@ -69,7 +71,7 @@ class task {
         }
     }
 
-    public function remove():bool {
+    public function remove(): bool {
         global $DB;
         return $DB->delete_records('tool_elza3ym', ['id' => $this->id]);
     }
