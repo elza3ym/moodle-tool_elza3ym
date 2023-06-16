@@ -6,7 +6,6 @@ Feature: CRUD task
     And I click on "Tasks Management" "link"
     Then I should see "Hello to the todo list"
     And I set the field "Task Title" to "Task1"
-    And I click on "Completed ?" "checkbox"
     Then I press "Save changes"
     Then I should see "Task Created Successfully."
     And I wait to be redirected
@@ -18,7 +17,6 @@ Feature: CRUD task
     And I click on "Tasks Management" "link"
     Then I should see "Hello to the todo list"
     And I set the field "Task Title" to "Task2"
-    And I click on "Completed ?" "checkbox"
     Then I press "Save changes"
     Then I should see "Task Created Successfully."
 

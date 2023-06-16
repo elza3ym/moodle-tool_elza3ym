@@ -30,8 +30,11 @@ namespace tool_elza3ym;
  */
 class tasks_test extends \advanced_testcase {
     /**
-     * @return task
      * Test creating task.
+     *
+     * @covers \tool_elza3ym
+     * @return task
+     * @throws \dml_exception
      */
     public function test_task_create() {
         $this->resetAfterTest(false);
@@ -54,8 +57,10 @@ class tasks_test extends \advanced_testcase {
     /**
      * Test editing task.
      *
+     * @covers \tool_elza3ym
      * @param task $task
      * @depends test_task_create
+     * @throws \dml_exception
      */
     public function test_task_edit($task) {
         $this->resetAfterTest(false);
@@ -76,8 +81,10 @@ class tasks_test extends \advanced_testcase {
     /**
      * Test deleting task.
      *
+     * @covers \tool_elza3ym
      * @param task $task
      * @depends test_task_create
+     * @throws \dml_exception
      */
     public function test_task_delete(task $task) {
         $this->resetAfterTest(false);
