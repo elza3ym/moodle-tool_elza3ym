@@ -28,14 +28,37 @@ namespace tool_elza3ym;
  * task class model.
  */
 class task {
+    /**
+     * @var int|null $id
+     */
     public ?int $id = null;
+
+    /**
+     * @var string $tasktitle
+     */
     public string $tasktitle;
+
+    /**
+     * @var bool $completed
+     */
     public bool $completed;
+
+    /**
+     * @var int|null $courseid
+     */
     public ?int $courseid = 1;
 
+    /**
+     * Initialize instance of task stdclass.
+     */
     public function __construct() {
     }
 
+    /**
+     * Get single task instance.
+     * @param int $id
+     * @return self|null
+     */
     public static function get(int $id): ?self {
         global $DB;
 
@@ -53,6 +76,11 @@ class task {
         return $instance;
     }
 
+    /**
+     * Get all tasks from the DB.
+     * @return array
+     * @throws \dml_exception
+     */
     public static function getall(): array {
         global $DB;
 
@@ -60,6 +88,11 @@ class task {
     }
 
 
+    /**
+     * Persist the data edited/created and store them to DB.
+     * @return int
+     * @throws \dml_exception
+     */
     public function save(): int {
         global $DB;
 
@@ -71,6 +104,11 @@ class task {
         }
     }
 
+    /**
+     * Remove task instance from DB.
+     * @return bool
+     * @throws \dml_exception
+     */
     public function remove(): bool {
         global $DB;
         return $DB->delete_records('tool_elza3ym', ['id' => $this->id]);

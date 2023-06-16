@@ -29,8 +29,15 @@ use renderer_base;
  * index_page that implements the templating and rendering Interfaces.
  */
 class index_page implements \renderable, \templatable {
+    /**
+     * Tasks array to display on index.
+     */
     private $tasks;
 
+    /**
+     * Initialize data to pass to view.
+     * @param $tasks
+     */
     public function __construct($tasks) {
         $this->tasks = $tasks;
     }

@@ -1,4 +1,4 @@
-@javascript @tasks_test
+@javascript @tool_elza3ym
 Feature: CRUD task
   Background:
     When I log in as "admin"

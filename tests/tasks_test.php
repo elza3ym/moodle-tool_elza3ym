@@ -30,6 +30,7 @@ namespace tool_elza3ym;
  */
 class tasks_test extends \advanced_testcase {
     /**
+     * @return task
      * Test creating task.
      */
     public function test_task_create() {
@@ -40,7 +41,7 @@ class tasks_test extends \advanced_testcase {
         $taskid = $task->save();
         $this->assertIsNumeric($taskid);
 
-        // assert record in DB.
+        // Assert record in DB.
         $taskcheck = task::get($taskid);
         $this->assertInstanceOf(task::class, $taskcheck);
         $this->assertEquals($task->tasktitle, $taskcheck->tasktitle);
@@ -53,6 +54,7 @@ class tasks_test extends \advanced_testcase {
     /**
      * Test editing task.
      *
+     * @param task $task
      * @depends test_task_create
      */
     public function test_task_edit($task) {
@@ -63,7 +65,7 @@ class tasks_test extends \advanced_testcase {
         $task->completed = 1;
         $taskid = $task->save();
 
-        // assert updated record in DB.
+        // Assert updated record in DB.
         $taskcheck = task::get($taskid);
         $this->assertInstanceOf(task::class, $taskcheck);
         $this->assertEquals($task->tasktitle, $taskcheck->tasktitle);
@@ -74,12 +76,14 @@ class tasks_test extends \advanced_testcase {
     /**
      * Test deleting task.
      *
+     * @param task $task
      * @depends test_task_create
      */
     public function test_task_delete(task $task) {
         $this->resetAfterTest(false);
         $task->remove();
 
+        // Assert removed record from DB.
         $taskcheck = task::get($task->id);
         $this->assertNull($taskcheck);
     }
