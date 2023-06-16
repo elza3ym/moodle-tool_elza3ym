@@ -53,7 +53,7 @@ class task {
         return $instance;
     }
 
-    public static function getAll(): array {
+    public static function getall(): array {
         global $DB;
 
         return $DB->get_records('tool_elza3ym', null, 'id DESC', '*');

@@ -78,7 +78,7 @@ echo $output->heading($pagetitle);
 
 
 $courseid = optional_param('courseid', 1, PARAM_INT);
-$tasks = \tool_elza3ym\task::getAll();
+$tasks = \tool_elza3ym\task::getall();
 
 $renderable = new \tool_elza3ym\output\index_page(array_values($tasks));
 

@@ -17,6 +17,7 @@
 /**
  * Handle task crud tests.
  *
+ * @covers     \tool_elza3ym
  * @package   tool_elza3ym
  * @copyright 2023, Mohamed Shehata <mohamed.shehata@moodle.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
@@ -28,25 +29,30 @@ namespace tool_elza3ym;
  * task phpunit test cases.
  */
 class tasks_test extends \advanced_testcase {
+    /**
+     * Test creating task.
+     */
     public function test_task_create() {
         $this->resetAfterTest(false);
         $task = new task();
         $task->tasktitle = 'title1';
         $task->completed = 0;
-        $taskId = $task->save();
-        $this->assertIsNumeric($taskId);
+        $taskid = $task->save();
+        $this->assertIsNumeric($taskid);
 
         // assert record in DB.
-        $taskCheck = task::get($taskId);
-        $this->assertInstanceOf(task::class, $taskCheck);
-        $this->assertEquals($task->tasktitle, $taskCheck->tasktitle);
-        $this->assertEquals($task->completed, $taskCheck->completed);
+        $taskcheck = task::get($taskid);
+        $this->assertInstanceOf(task::class, $taskcheck);
+        $this->assertEquals($task->tasktitle, $taskcheck->tasktitle);
+        $this->assertEquals($task->completed, $taskcheck->completed);
 
-        return $taskCheck;
+        return $taskcheck;
     }
 
 
     /**
+     * Test editing task.
+     *
      * @depends test_task_create
      */
     public function test_task_edit($task) {
@@ -55,25 +61,27 @@ class tasks_test extends \advanced_testcase {
 
         $task->tasktitle = 'edited task';
         $task->completed = 1;
-        $taskId = $task->save();
+        $taskid = $task->save();
 
         // assert updated record in DB.
-        $taskCheck = task::get($taskId);
-        $this->assertInstanceOf(task::class, $taskCheck);
-        $this->assertEquals($task->tasktitle, $taskCheck->tasktitle);
-        $this->assertEquals($task->completed, $taskCheck->completed);
+        $taskcheck = task::get($taskid);
+        $this->assertInstanceOf(task::class, $taskcheck);
+        $this->assertEquals($task->tasktitle, $taskcheck->tasktitle);
+        $this->assertEquals($task->completed, $taskcheck->completed);
         return $task;
     }
 
     /**
+     * Test deleting task.
+     *
      * @depends test_task_create
      */
     public function test_task_delete(task $task) {
         $this->resetAfterTest(false);
         $task->remove();
 
-        $taskCheck = task::get($task->id);
-        $this->assertNull($taskCheck);
+        $taskcheck = task::get($task->id);
+        $this->assertNull($taskcheck);
     }
 
 }
